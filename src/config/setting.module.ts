@@ -1,27 +1,13 @@
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { DirectiveLocation, GraphQLDirective } from 'graphql';
-import { upperDirectiveTransformer } from 'src/common/directives/upper-case.directive';
-// import { TypeOrmModule } from '@nestjs/typeorm';
+import { SettingConfig } from './settingConfig';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      playground: true,
-      autoSchemaFile: 'schema.gql',
-      transformSchema: (schema) => upperDirectiveTransformer(schema, 'upper'),
-      installSubscriptionHandlers: true,
-      buildSchemaOptions: {
-        directives: [
-          new GraphQLDirective({
-            name: 'upper',
-            locations: [DirectiveLocation.FIELD_DEFINITION],
-          }),
-        ],
-      },
-    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>(SettingConfig.graphql),
+    TypeOrmModule.forRoot(SettingConfig.typeorm),
   ],
 })
 export class SettingModule {}

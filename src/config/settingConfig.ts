@@ -20,8 +20,7 @@ export const SettingConfig: ISettingConfig = {
     database: 'bookstore',
     host: '127.0.0.1',
     port: 5432,
-    // entities: [__dirname + '/../**/*.entity.{js,ts}'],
-    entities: [Book],
+    entities: [__dirname + '/../**/*.entity.{js,ts}'],
     synchronize: true,
   },
 };

@@ -1,12 +1,12 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 @ObjectType({ description: 'book' })
-export class Book {
-  @PrimaryColumn()
+export class Book extends BaseEntity {
+  @PrimaryGeneratedColumn()
   @Field(() => ID)
-  id: string;
+  id: number;
 
   @Column()
   @Field({ nullable: true })

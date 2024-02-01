@@ -1,6 +1,6 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Book } from 'src/modules/book/entity/book.entity';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 interface ISettingConfig {
   graphql: ApolloDriverConfig;
@@ -21,6 +21,7 @@ export const SettingConfig: ISettingConfig = {
     host: '127.0.0.1',
     port: 5432,
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
+    namingStrategy: new SnakeNamingStrategy(),
     synchronize: true,
   },
 };

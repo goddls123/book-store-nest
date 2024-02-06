@@ -12,14 +12,12 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async join({ email, password }: UserDto): Promise<boolean> {
+  async createUser({ email, password }: UserDto): Promise<User> {
     const user = new User();
     user.email = email;
     user.password = password;
 
-    await this.userRepository.save(user);
-
-    return true;
+    return await this.userRepository.save(user);
   }
 
   async login({ email, password }: UserDto): Promise<boolean> {
@@ -38,5 +36,10 @@ export class UserService {
       throw new NotFoundError(`Cannot find ${email}`);
     }
     return user;
+  }
+
+  async removeUser(email: string): Promise<void> {
+    console.log(email);
+    await this.userRepository.delete({ email });
   }
 }

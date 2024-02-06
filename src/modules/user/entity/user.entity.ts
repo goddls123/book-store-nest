@@ -3,7 +3,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 @ObjectType({ description: 'User' })
-export class User extends BaseEntity {
+export class User {
   @PrimaryGeneratedColumn()
   @Field(() => ID)
   id: number;
@@ -13,10 +13,10 @@ export class User extends BaseEntity {
   email: string;
 
   @Column({ type: 'varchar', length: 50 })
-  @Field()
+  @Field({ nullable: true })
   password: string;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
-  @Field()
+  @Field({ nullable: true })
   salt: string;
 }

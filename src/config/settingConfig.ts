@@ -24,5 +24,6 @@ export const SettingConfig: ISettingConfig = {
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     namingStrategy: new SnakeNamingStrategy(),
     synchronize: ynv.db.synchronize,
+    logging: ynv.db.log,
   },
 };

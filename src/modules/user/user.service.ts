@@ -36,7 +36,6 @@ export class UserService {
 
   async login({ email, password }: UserDto): Promise<boolean> {
     const user = await this.userRepository.findOneBy({ email });
-
     if (
       user &&
       (await hashingPassword(password, user.salt)) === user.password

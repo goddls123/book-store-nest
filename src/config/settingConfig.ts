@@ -1,6 +1,7 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import ynv from './envConfig';
 
 interface ISettingConfig {
   graphql: ApolloDriverConfig;
@@ -14,14 +15,14 @@ export const SettingConfig: ISettingConfig = {
     autoSchemaFile: 'schema.gql',
   },
   typeorm: {
-    type: 'postgres',
-    username: 'postgres',
-    password: 'qwer1234',
-    database: 'bookstore',
-    host: '127.0.0.1',
-    port: 5432,
+    type: ynv.db.type,
+    username: ynv.db.username,
+    password: ynv.db.password,
+    database: ynv.db.database,
+    host: ynv.db.host,
+    port: ynv.db.port,
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     namingStrategy: new SnakeNamingStrategy(),
-    synchronize: true,
+    synchronize: ynv.db.synchronize,
   },
 };

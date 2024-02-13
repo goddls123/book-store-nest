@@ -39,12 +39,16 @@
     "graphql-query-complexity": "^0.12.0",
     "graphql-subscriptions": "^2.0.0",
     "js-yaml": "^4.1.0",
+    "nest-winston": "^1.9.4",
     "passport-jwt": "^4.0.1",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20",
-    "typeorm-naming-strategies": "^4.1.0"
+    "typeorm-naming-strategies": "^4.1.0",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "winston-transport": "^4.7.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

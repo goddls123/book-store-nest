@@ -25,5 +25,6 @@ export const SettingConfig: ISettingConfig = {
     namingStrategy: new SnakeNamingStrategy(),
     synchronize: ynv.db.synchronize,
     logging: ynv.db.log,
+    charset: ynv.db.charset,
   },
 };

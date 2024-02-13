@@ -12,15 +12,14 @@ export class UserResolver {
     if (isEmail(email)) {
       return this.userService.getUser(email);
     }
-
-    return false;
+    throw new Error('must be email');
   }
   @Query(() => User)
   async users() {
     console.log('users');
     return true;
   }
-  @Mutation((type) => Boolean)
+  @Mutation((type) => User)
   async join(@Args() userDto: UserDto) {
     return await this.userService.createUser(userDto);
   }

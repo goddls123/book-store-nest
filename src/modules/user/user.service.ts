@@ -1,10 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { User } from './entity/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFoundError } from 'rxjs';
 import { UserDto } from './dto/user.args';
-
+import { hashingPassword, makeHashPassword } from '../../auth/crypto';
 @Injectable()
 export class UserService {
   constructor(
@@ -15,25 +19,38 @@ export class UserService {
   async createUser({ email, password }: UserDto): Promise<User> {
     const user = new User();
     user.email = email;
-    user.password = password;
+    const { salt, hashPassword } = makeHashPassword(password);
+    user.salt = salt;
+    user.password = hashPassword;
 
-    return await this.userRepository.save(user);
+    try {
+      return await this.userRepository.save(user);
+    } catch (e) {
+      if (e.code === '23505') {
+        throw new ConflictException('중복 아이디');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
   }
 
   async login({ email, password }: UserDto): Promise<boolean> {
     const user = await this.userRepository.findOneBy({ email });
 
-    if (!user) {
-      throw new NotFoundError('Cannot find User');
+    if (
+      user &&
+      (await hashingPassword(password, user.salt)) === user.password
+    ) {
+      return true;
     }
-    console.log('login', user);
-    return true;
+
+    throw new UnauthorizedException('비밀번호 또는 아이디가 잘못되었습니다.');
   }
 
   async getUser(email: string): Promise<User> {
     const user = await this.userRepository.findOneBy({ email });
     if (!user) {
-      throw new NotFoundError(`Cannot find ${email}`);
+      throw new UnauthorizedException(`Cannot find ${email}`);
     }
     return user;
   }

@@ -9,11 +9,14 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from './dto/user.args';
 import { hashingPassword, makeHashPassword } from '../../auth/crypto';
+import { JwtService } from '@nestjs/jwt';
+import { jwtTokenResponse } from './response/jwtToken.response';
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async createUser({ email, password }: UserDto): Promise<User> {
@@ -34,13 +37,17 @@ export class UserService {
     }
   }
 
-  async login({ email, password }: UserDto): Promise<boolean> {
+  async login({ email, password }: UserDto): Promise<jwtTokenResponse> {
     const user = await this.userRepository.findOneBy({ email });
     if (
       user &&
       (await hashingPassword(password, user.salt)) === user.password
     ) {
-      return true;
+      const respond = new jwtTokenResponse();
+      const payload = { id: user.id, email: user.email };
+      respond.accessToken = await this.jwtService.sign(payload);
+      respond.email = user.email;
+      return respond;
     }
 
     throw new UnauthorizedException('비밀번호 또는 아이디가 잘못되었습니다.');

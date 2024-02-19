@@ -13,6 +13,6 @@ import ynv from 'src/config/envConfig';
     PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   providers: [JwtStrategy],
-  exports: [JwtStrategy, PassportModule],
+  exports: [JwtStrategy, JwtModule, PassportModule],
 })
 export class AuthModule {}

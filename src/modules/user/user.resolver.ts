@@ -3,6 +3,7 @@ import { User } from './entity/user.entity';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user.args';
 import { isEmail } from 'class-validator';
+import { jwtTokenResponse } from './response/jwtToken.response';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -23,7 +24,7 @@ export class UserResolver {
   async join(@Args() userDto: UserDto) {
     return await this.userService.createUser(userDto);
   }
-  @Mutation((type) => Boolean)
+  @Mutation((type) => jwtTokenResponse)
   async login(@Args() userDto: UserDto) {
     return this.userService.login(userDto);
   }

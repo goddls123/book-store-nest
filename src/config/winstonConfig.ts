@@ -67,4 +67,4 @@ const winstonConfig: NestApplicationContextOptions = {
   }),
 };
 
-export { winstonConfig, winstonConsole, winstonFile };
+export { winstonConfig };

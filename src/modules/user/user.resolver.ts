@@ -1,9 +1,12 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User } from './entity/user.entity';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user.args';
 import { isEmail } from 'class-validator';
 import { jwtTokenResponse } from './response/jwtToken.response';
+import { UseGuards } from '@nestjs/common';
+import { JwtGuard } from 'src/auth/guard/jwt.guard';
+import { JwtToken } from 'src/common/decorator/JwtToken.decorator';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -15,10 +18,11 @@ export class UserResolver {
     }
     throw new Error('must be email');
   }
-  @Query(() => User)
-  async users() {
-    console.log('users');
-    return true;
+  @UseGuards(JwtGuard)
+  @Query(() => [User])
+  async users(@JwtToken() user) {
+    console.log(user);
+    return this.userService.getUsers();
   }
   @Mutation((type) => User)
   async join(@Args() userDto: UserDto) {

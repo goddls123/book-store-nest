@@ -60,7 +60,9 @@ export class UserService {
     }
     return user;
   }
-
+  async getUsers(): Promise<User[]> {
+    return await this.userRepository.find();
+  }
   async removeUser(email: string): Promise<void> {
     console.log(email);
     await this.userRepository.delete({ email });

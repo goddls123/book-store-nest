@@ -1,8 +1,11 @@
-import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
+import { Module, forwardRef } from '@nestjs/common';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 import ynv from 'src/config/envConfig';
+import { AuthService } from './auth.service';
+import { JwtRefreshStrategy } from './jwt-refresh.strategy';
+import { UserModule } from 'src/modules/user/user.module';
 
 @Module({
   imports: [
@@ -11,8 +14,9 @@ import ynv from 'src/config/envConfig';
       signOptions: { expiresIn: ynv.jwt.access.expiresIn },
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
+    forwardRef(() => UserModule),
   ],
-  providers: [JwtStrategy],
-  exports: [JwtStrategy, JwtModule, PassportModule],
+  providers: [JwtStrategy, AuthService, JwtService, JwtRefreshStrategy],
+  exports: [JwtStrategy, AuthService, JwtModule, PassportModule],
 })
 export class AuthModule {}

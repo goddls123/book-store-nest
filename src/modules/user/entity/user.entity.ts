@@ -17,6 +17,8 @@ export class User {
   password: string;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
-  @Field({ nullable: true })
   salt: string;
+
+  @Column({ type: 'varchar', length: 200, nullable: true })
+  refreshToken: string;
 }

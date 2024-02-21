@@ -7,6 +7,7 @@ import { jwtTokenResponse } from './response/jwtToken.response';
 import { UseGuards } from '@nestjs/common';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
 import { JwtToken } from 'src/common/decorator/JwtToken.decorator';
+import { JwtRefreshGuard } from 'src/auth/guard/jwt-refresh.guard';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -21,7 +22,6 @@ export class UserResolver {
   @UseGuards(JwtGuard)
   @Query(() => [User])
   async users(@JwtToken() user) {
-    console.log(user);
     return this.userService.getUsers();
   }
   @Mutation((type) => User)
@@ -35,5 +35,17 @@ export class UserResolver {
   @Mutation((type) => Boolean)
   async resetPassword(@Args() userDto: UserDto) {
     return this.userService.createUser(userDto);
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Mutation((type) => jwtTokenResponse)
+  async reissiuredToken(@JwtToken() user): Promise<jwtTokenResponse> {
+    return user;
+  }
+
+  @UseGuards(JwtGuard)
+  @Mutation((type) => Boolean)
+  async logOut(@JwtToken() user): Promise<boolean> {
+    return this.userService.removeRefreshToken(user.email);
   }
 }

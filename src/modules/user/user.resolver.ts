@@ -31,10 +31,6 @@ export class UserResolver {
   async login(@Args() userDto: UserDto) {
     return this.userService.login(userDto);
   }
-  @Mutation((type) => Boolean)
-  async resetPassword(@Args() userDto: UserDto) {
-    return this.userService.createUser(userDto);
-  }
 
   @UseGuards(JwtRefreshGuard)
   @Mutation((type) => jwtTokenResponse)
@@ -46,5 +42,10 @@ export class UserResolver {
   @Mutation((type) => Boolean)
   async logOut(@JwtToken() user): Promise<boolean> {
     return this.userService.removeRefreshToken(user.email);
+  }
+
+  @Mutation(() => Boolean)
+  async resetPassword(@Args() userDto: UserDto): Promise<boolean> {
+    return this.userService.updatePassword(userDto);
   }
 }

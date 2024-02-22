@@ -90,4 +90,15 @@ export class UserService {
 
     return true;
   }
+  async updatePassword(userDto: UserDto): Promise<boolean> {
+    const { hashPassword, salt } = this.authService.makeHashPassword(
+      userDto.password,
+    );
+
+    await this.userRepository.update(
+      { email: userDto.email },
+      { password: hashPassword, salt },
+    );
+    return true;
+  }
 }

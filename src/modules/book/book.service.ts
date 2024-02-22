@@ -7,7 +7,6 @@ import { PageResponse } from 'src/common/page/page.response';
 
 @Injectable()
 export class BookService {
-  private books: Book[] = [];
   constructor(
     @InjectRepository(Book)
     private readonly bookRepository: Repository<Book>,

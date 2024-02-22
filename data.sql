@@ -28,3 +28,16 @@ VALUES ('효녀 심청', 12, 3, '종이책', 9, '심청아..', '공양미 삼백
 INSERT INTO book (title, img, category_id, form, isbn, summary, description, author, pages, contents, price, pub_date)
 VALUES ('혹부리 영감', 22, 2, 'ebook', 10, '노래 주머니..', '혹 두개 되버림..', '김영감', 100, '목차입니다.', 20000, '2024-02-05');
 
+
+-- category --
+-- insert
+INSERT INTO category (name)
+VALUES ('소설');
+INSERT INTO category (name)
+VALUES ('과학');
+INSERT INTO category (name)
+VALUES ('인문학');
+
+
+
+

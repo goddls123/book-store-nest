@@ -1,14 +1,14 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { Column, Entity } from 'typeorm';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Entity, PrimaryColumn } from 'typeorm';
 
-@Entity()
-@ObjectType()
+@Entity('likes')
+@ObjectType({ description: 'Like' })
 export class Like {
-  @Column({ type: 'int' })
+  @PrimaryColumn({ type: 'int' })
   @Field(() => ID)
   userId: number;
 
-  @Column({ type: 'int' })
+  @PrimaryColumn({ type: 'int' })
   @Field(() => ID)
   likedBookId: number;
 }

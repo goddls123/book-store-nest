@@ -9,7 +9,14 @@ import { CategoryModule } from './modules/category/category.module';
 import { LikeModule } from './modules/like/like.module';
 
 @Module({
-  imports: [UserModule, BookModule, AuthModule, SettingModule, CategoryModule, LikeModule],
+  imports: [
+    UserModule,
+    BookModule,
+    AuthModule,
+    SettingModule,
+    CategoryModule,
+    LikeModule,
+  ],
   controllers: [AppController],
   providers: [AppService, Logger],
 })

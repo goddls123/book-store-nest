@@ -51,6 +51,7 @@ export class UserService {
       respond.accessToken = accessToken;
       respond.refreshToken = refreshToken;
       respond.email = user.email;
+      respond.id = user.id;
 
       return respond;
     }

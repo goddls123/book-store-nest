@@ -8,4 +8,6 @@ export class jwtTokenResponse {
   refreshToken: string;
   @Field()
   email: string;
+  @Field()
+  id: number;
 }

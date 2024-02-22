@@ -10,16 +10,17 @@ export class LikeService {
     private readonly bookRepository: Repository<Like>,
   ) {}
 
-  async addLike(likedBookId: number): Promise<boolean> {
+  async addLike(likedBookId: number, userId: number): Promise<boolean> {
     const like = new Like();
     like.likedBookId = likedBookId;
+    like.userId = userId;
 
     await this.bookRepository.save(like);
     return true;
   }
 
-  async deleteLike(likedBookId: number): Promise<boolean> {
-    await this.bookRepository.delete({ likedBookId });
+  async deleteLike(likedBookId: number, userId: number): Promise<boolean> {
+    await this.bookRepository.delete({ likedBookId, userId });
     return true;
   }
 }

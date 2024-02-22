@@ -32,6 +32,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
 
     const { accessToken, refreshToken } = this.authService.createToken({
       email: user.email,
+      id: user.id,
     });
 
     await this.userService.updateRefreshToken(user.email, refreshToken);

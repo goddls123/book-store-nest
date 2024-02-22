@@ -1,4 +1,4 @@
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User } from './entity/user.entity';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user.args';
@@ -19,9 +19,8 @@ export class UserResolver {
     }
     throw new Error('must be email');
   }
-  @UseGuards(JwtGuard)
   @Query(() => [User])
-  async users(@JwtToken() user) {
+  async users() {
     return this.userService.getUsers();
   }
   @Mutation((type) => User)

@@ -18,7 +18,7 @@ export class Book extends BaseEntity {
 
   @Column()
   @Field(() => ID)
-  categoryId: string;
+  categoryId: number;
 
   @Column()
   @Field({ nullable: true })
@@ -38,7 +38,7 @@ export class Book extends BaseEntity {
 
   @Column()
   @Field({ nullable: true })
-  detail?: string;
+  description?: string;
 
   @Column()
   @Field({ nullable: true })
@@ -52,7 +52,7 @@ export class Book extends BaseEntity {
   @Field((type) => Int)
   price: string;
 
-  @Column()
+  @Column({ nullable: true })
   @Field((type) => Int, { nullable: true })
   likes?: number;
 

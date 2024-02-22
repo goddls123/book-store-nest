@@ -8,55 +8,55 @@ export class Book extends BaseEntity {
   @Field(() => ID)
   id: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
   @Field({ nullable: true })
   title: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   @Field({ nullable: true })
   isbn?: string;
 
-  @Column()
+  @Column({ type: 'int' })
   @Field(() => ID)
   categoryId: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   @Field({ nullable: true })
   img: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   @Field({ nullable: true })
   form?: string;
 
-  @Column()
+  @Column({ type: 'int' })
   @Field((type) => Int, { nullable: true })
   pages?: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 500 })
   @Field({ nullable: true })
   contents?: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 500 })
   @Field({ nullable: true })
   description?: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 300 })
   @Field({ nullable: true })
   summary?: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 20 })
   @Field({ nullable: true })
   author?: string;
 
-  @Column()
+  @Column({ type: 'int' })
   @Field((type) => Int)
-  price: string;
+  price: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'int' })
   @Field((type) => Int, { nullable: true })
   likes?: number;
 
-  @Column()
+  @Column({ type: 'timestamp' })
   @Field({ nullable: true })
   pubDate?: Date;
 }

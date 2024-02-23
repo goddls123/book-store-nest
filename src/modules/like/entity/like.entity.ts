@@ -1,14 +1,19 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryColumn } from 'typeorm';
+import { Book } from 'src/modules/book/entity/book.entity';
+import { User } from 'src/modules/user/entity/user.entity';
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('likes')
 @ObjectType({ description: 'Like' })
 export class Like {
-  @PrimaryColumn({ type: 'int' })
+  @PrimaryGeneratedColumn({ type: 'int' })
+  id: number;
+
+  @ManyToOne(() => User, (d) => d.id)
   @Field(() => ID)
   userId: number;
 
-  @PrimaryColumn({ type: 'int' })
+  @ManyToOne(() => Book, (d) => d.id)
   @Field(() => ID)
   likedBookId: number;
 }

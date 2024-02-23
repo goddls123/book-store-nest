@@ -1,5 +1,12 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Category } from 'src/modules/category/entity/category.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 @ObjectType({ description: 'book' })
@@ -16,7 +23,7 @@ export class Book extends BaseEntity {
   @Field({ nullable: true })
   isbn?: string;
 
-  @Column({ type: 'int' })
+  @ManyToOne(() => Category, (d) => d.id)
   @Field(() => ID)
   categoryId: number;
 

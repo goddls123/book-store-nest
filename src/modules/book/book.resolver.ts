@@ -3,6 +3,7 @@ import { BookService } from './book.service';
 import { Book } from './entity/book.entity';
 import { BookDto } from './dto/book.args';
 import { BookResponse } from './response/book.response';
+import { BookDetail } from './entity/bookDetail';
 
 @Resolver(() => Book)
 export class BooksResolver {
@@ -13,7 +14,7 @@ export class BooksResolver {
     return await this.booksService.getBooks(bookDto);
   }
 
-  @Query((type) => Book)
+  @Query((type) => BookDetail)
   async bookDetail(@Args({ name: 'id' }) id: number) {
     return await this.booksService.getBook(id);
   }

@@ -4,6 +4,7 @@ import { BookDto } from './dto/book.args';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Between, Repository } from 'typeorm';
 import { PageResponse } from 'src/common/page/page.response';
+import { Like } from '../like/entity/like.entity';
 
 @Injectable()
 export class BookService {
@@ -40,11 +41,19 @@ export class BookService {
       pagination,
     };
   }
-  async getBook(bookId: number): Promise<Book> {
-    const book = await this.bookRepository.findOne({
-      relations: { category: true },
-      where: { id: bookId },
-    });
+  async getBook(bookId: number) {
+    const book = await this.bookRepository
+      .createQueryBuilder('a')
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('COUNT(*)')
+          .from(Like, 'likes')
+          .where(`liked_book_id=${bookId}`);
+      }, 'a_likes')
+      .leftJoinAndSelect('a.category', 'category')
+      .where(`a.id = ${bookId}`)
+      .getOne();
+    console.log(book);
     return book;
   }
   async getBooksByCategory(categoryId: number): Promise<Book[]> {

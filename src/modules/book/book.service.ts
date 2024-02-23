@@ -41,7 +41,11 @@ export class BookService {
     };
   }
   async getBook(bookId: number): Promise<Book> {
-    return await this.bookRepository.findOneBy({ id: bookId });
+    const book = await this.bookRepository.findOne({
+      relations: { category: true },
+      where: { id: bookId },
+    });
+    return book;
   }
   async getBooksByCategory(categoryId: number): Promise<Book[]> {
     return await this.bookRepository.findBy({ categoryId });

@@ -24,7 +24,11 @@ export class Book extends BaseEntity {
   isbn?: string;
 
   @ManyToOne(() => Category, (d) => d.id)
-  @Field(() => ID)
+  @Field(() => Category)
+  category: Category;
+
+  @Column({ type: 'int' })
+  @Field({ nullable: true })
   categoryId: number;
 
   @Column({ type: 'varchar' })
@@ -62,6 +66,9 @@ export class Book extends BaseEntity {
   @Column({ nullable: true, type: 'int' })
   @Field((type) => Int, { nullable: true })
   likes?: number;
+
+  @Field((type) => Boolean, { nullable: true })
+  liked: boolean;
 
   @Column({ type: 'timestamp' })
   @Field({ nullable: true })

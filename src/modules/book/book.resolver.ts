@@ -14,7 +14,7 @@ export class BooksResolver {
   }
 
   @Query((type) => Book)
-  async bookDetail(@Args({ name: 'id' }) id: number): Promise<Book> {
+  async bookDetail(@Args({ name: 'id' }) id: number) {
     return await this.booksService.getBook(id);
   }
   @Query((type) => [Book])

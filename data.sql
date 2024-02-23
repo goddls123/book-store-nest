@@ -29,6 +29,30 @@ INSERT INTO book (title, img, category_id, form, isbn, summary, description, aut
 VALUES ('혹부리 영감', 22, 2, 'ebook', 10, '노래 주머니..', '혹 두개 되버림..', '김영감', 100, '목차입니다.', 20000, '2024-02-05');
 
 
+SELECT 
+  a.id,
+  a.title, 
+  a.form,
+  a.category_id,
+  b.name,
+  a.isbn,
+  a.description,
+  a.pages,
+  a.contents,
+  a.summary,
+  a.author,
+  a.price,
+  a.pub_date,
+  (SELECT EXISTS (SELECT * FROM likes WHERE user_id = 23 AND liked_book_id = 33 )) AS liked,
+  (SELECT count(*) FROM likes WHERE liked_book_id = 33) AS likes
+  FROM book a
+  LEFT JOIN category b
+  ON a.category_id = b.id 
+  WHERE a.id = 23
+  
+  
+
+
 -- category --
 -- insert
 INSERT INTO category (name)

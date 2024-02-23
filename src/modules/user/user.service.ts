@@ -48,6 +48,8 @@ export class UserService {
       const { accessToken, refreshToken } =
         this.authService.createToken(payload);
 
+      await this.userRepository.update({ id: user.id }, { refreshToken });
+
       respond.accessToken = accessToken;
       respond.refreshToken = refreshToken;
       respond.email = user.email;

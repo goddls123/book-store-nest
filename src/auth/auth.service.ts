@@ -21,6 +21,12 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
+  verify(token) {
+    const payload = this.jwtService.verify(token, {
+      secret: ynv.jwt.access.secret,
+    });
+    return payload;
+  }
   public makeHashPassword = (password: string) => {
     const salt = crypto.randomBytes(10).toString(ynv.jwt.encoding);
     const hashPassword = crypto

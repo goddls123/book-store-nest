@@ -1,6 +1,4 @@
 import { Logger, Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { BookModule } from './modules/book/book.module';
 import { AuthModule } from './auth/auth.module';
 import { SettingModule } from './config/setting.module';
@@ -21,7 +19,6 @@ import { OrderModule } from './modules/order/order.module';
     CartModule,
     OrderModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, Logger],
+  providers: [Logger],
 })
 export class AppModule {}

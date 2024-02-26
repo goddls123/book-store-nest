@@ -41,7 +41,7 @@ export class BookService {
       pagination,
     };
   }
-  async getBook(bookId: number) {
+  async getBook(bookId: number, user) {
     const book = await this.bookRepository
       .createQueryBuilder('a')
       .addSelect((subQuery) => {
@@ -53,7 +53,7 @@ export class BookService {
       .leftJoinAndSelect('a.category', 'category')
       .where(`a.id = ${bookId}`)
       .getOne();
-    console.log(book);
+    // console.log(book);
     return book;
   }
   async getBooksByCategory(categoryId: number): Promise<Book[]> {

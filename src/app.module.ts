@@ -7,6 +7,7 @@ import { SettingModule } from './config/setting.module';
 import { UserModule } from './modules/user/user.module';
 import { CategoryModule } from './modules/category/category.module';
 import { LikeModule } from './modules/like/like.module';
+import { CartModule } from './modules/cart/cart.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { LikeModule } from './modules/like/like.module';
     SettingModule,
     CategoryModule,
     LikeModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService, Logger],

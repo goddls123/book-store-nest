@@ -13,15 +13,14 @@ export class Cart {
   @ManyToOne(() => User, (d) => d.id)
   user: User;
 
+  @Field(() => Book)
   @ManyToOne(() => Book, (d) => d.id)
   book: Book;
 
   @Column({ type: 'int' })
-  @Field(() => ID)
   userId: number;
 
   @Column({ type: 'int' })
-  @Field(() => ID)
   bookId: number;
 
   @Column({ type: 'int' })

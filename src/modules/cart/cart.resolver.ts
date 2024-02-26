@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Cart } from './entity/cart.entity';
 import { CartService } from './cart.service';
 import { CartDto } from './dto/cart.args';
@@ -13,7 +13,7 @@ export class CartResolver {
   @UseGuards(JwtGuard)
   @Query(() => [Cart])
   async carts(
-    @Args('selected', { type: () => [Number], nullable: true })
+    @Args('selected', { type: () => [Int], nullable: true })
     selected: number[],
     @JwtToken() user,
   ) {

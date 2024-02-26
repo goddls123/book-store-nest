@@ -39,7 +39,7 @@ export class Book extends BaseEntity {
   form?: string;
 
   @Column({ type: 'int' })
-  @Field((type) => Int, { nullable: true })
+  @Field(() => Int, { nullable: true })
   pages?: number;
 
   @Column({ type: 'varchar', length: 500 })
@@ -59,11 +59,11 @@ export class Book extends BaseEntity {
   author?: string;
 
   @Column({ type: 'int' })
-  @Field((type) => Int)
+  @Field(() => Int)
   price: number;
 
   @Column({ nullable: true, type: 'int' })
-  @Field((type) => Int, { nullable: true })
+  @Field(() => Int, { nullable: true })
   likes?: number;
 
   @Column({ type: 'timestamp' })

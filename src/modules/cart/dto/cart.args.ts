@@ -1,13 +1,13 @@
 import { ArgsType, Field } from '@nestjs/graphql';
-import { IsNumber } from 'class-validator';
+import { IsInt } from 'class-validator';
 
 @ArgsType()
 export class CartDto {
   @Field()
-  @IsNumber()
+  @IsInt()
   quantity: number;
 
   @Field()
-  @IsNumber()
+  @IsInt()
   bookId: number;
 }

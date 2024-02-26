@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Book } from 'src/modules/book/entity/book.entity';
 import { User } from 'src/modules/user/entity/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
@@ -24,6 +24,6 @@ export class Cart {
   bookId: number;
 
   @Column({ type: 'int' })
-  @Field(() => Number)
+  @Field(() => Int)
   quantity: number;
 }

@@ -20,6 +20,7 @@ export class OrderService {
     private readonly dataSource: DataSource,
   ) {}
 
+  // transaction 처리 더 좋은 방법 있으면 수정
   async order(
     deliveryDto: DeliveryDto,
     orderDto: OrderDto,

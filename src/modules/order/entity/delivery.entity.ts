@@ -5,18 +5,18 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @ObjectType()
 export class Delivery {
   @PrimaryGeneratedColumn()
-  @Field()
+  @Field({ nullable: true })
   id: number;
 
   @Column({ type: 'varchar', length: 100 })
-  @Field({ nullable: true })
+  @Field()
   address: string;
 
   @Column({ type: 'varchar', length: 30 })
-  @Field({ nullable: true })
+  @Field()
   receiver: string;
 
   @Column({ type: 'varchar', length: 20 })
-  @Field({ nullable: true })
+  @Field()
   contract: string;
 }

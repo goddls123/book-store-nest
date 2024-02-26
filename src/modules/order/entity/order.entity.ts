@@ -14,7 +14,7 @@ export class Order {
   userId: number;
 
   @ManyToOne(() => Delivery, (d) => d.id)
-  category: Delivery;
+  delivery: Delivery;
 
   @Column({ type: 'int' })
   @Field()

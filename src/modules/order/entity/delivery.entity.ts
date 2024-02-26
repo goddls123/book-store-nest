@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { DeliveryDto } from '../dto/delivery.args';
 
 @Entity()
 @ObjectType()
@@ -18,5 +19,11 @@ export class Delivery {
 
   @Column({ type: 'varchar', length: 20 })
   @Field()
-  contract: string;
+  contact: string;
+
+  setDelivery(delivery: DeliveryDto) {
+    this.address = delivery.address;
+    this.contact = delivery.contact;
+    this.receiver = delivery.receiver;
+  }
 }

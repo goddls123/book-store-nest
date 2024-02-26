@@ -1,16 +1,13 @@
-import { ArgsType, Field, Int } from '@nestjs/graphql';
-import { Delivery } from '../entity/delivery.entity';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { IsInt, Min } from 'class-validator';
+import { Item } from './item.args';
 
-@ArgsType()
+@InputType()
 export class OrderDto {
   @IsInt()
   @Min(1)
   @Field()
   totalQuantity: number;
-
-  @Field(() => [Int])
-  items: number[];
 
   @Field(() => String)
   firstBookTitle: string;
@@ -19,6 +16,6 @@ export class OrderDto {
   @Field(() => Int)
   totalPrice: number;
 
-  @Field(() => Delivery)
-  delivery: Delivery;
+  @Field(() => [Item])
+  items: Item[];
 }

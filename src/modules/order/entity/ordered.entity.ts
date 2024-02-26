@@ -13,6 +13,7 @@ export class Ordered {
   @ManyToOne(() => Order, (d) => d.id)
   order: Order;
 
+  @Field(() => Book)
   @ManyToOne(() => Book, (d) => d.id)
   book: Book;
 

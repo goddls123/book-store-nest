@@ -40,4 +40,7 @@ export class CartService {
     await this.cartRepository.delete({ id });
     return true;
   }
+  async deleteCarts(ids: number[]) {
+    await this.cartRepository.delete({ id: In(ids) });
+  }
 }

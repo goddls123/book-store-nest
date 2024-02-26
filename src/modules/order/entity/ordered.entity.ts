@@ -6,6 +6,11 @@ import { Book } from 'src/modules/book/entity/book.entity';
 @Entity()
 @ObjectType()
 export class Ordered {
+  constructor(bookId: number, quantity: number, orderId: number) {
+    this.bookId = bookId;
+    this.quantity = quantity;
+    this.orderId = orderId;
+  }
   @PrimaryGeneratedColumn()
   @Field()
   id: number;
@@ -24,10 +29,6 @@ export class Ordered {
   @Column({ type: 'int' })
   @Field({ nullable: true })
   orderId: number;
-
-  @Column({ type: 'int' })
-  @Field({ nullable: true })
-  deliveryId: number;
 
   @Column({ type: 'int' })
   @Field({ nullable: true })

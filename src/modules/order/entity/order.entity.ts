@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Delivery } from './delivery.entity';
+import { OrderDto } from '../dto/order.args';
 
 @Entity('orders')
 @ObjectType()
@@ -18,6 +19,10 @@ export class Order {
   @Column({ type: 'int' })
   @Field(() => Int)
   userId: number;
+
+  @Column({ type: 'varchar', length: 50 })
+  @Field(() => String)
+  bookTitle: string;
 
   @Field(() => Delivery)
   @ManyToOne(() => Delivery, (d) => d.id)
@@ -39,9 +44,11 @@ export class Order {
   @Field()
   createdAt: Date;
 
-  setOrder(delveryId: number, totalPrice: number, totalQuantity: number) {
+  setOrder(delveryId: number, orderDto: OrderDto, userId: number) {
     this.deliveryId = delveryId;
-    this.totalPrice = totalPrice;
-    this.totalQuantity = totalQuantity;
+    this.totalPrice = orderDto.totalPrice;
+    this.totalQuantity = orderDto.totalQuantity;
+    this.userId = userId;
+    this.bookTitle = orderDto.firstBookTitle;
   }
 }

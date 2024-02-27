@@ -7,6 +7,6 @@ export class BookDetail extends Book {
   @Field(() => Category)
   category: Category;
 
-  @Field((type) => Boolean, { nullable: true })
+  @Field(() => Boolean, { nullable: true })
   liked: boolean;
 }

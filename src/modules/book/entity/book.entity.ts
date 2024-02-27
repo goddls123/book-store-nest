@@ -62,11 +62,13 @@ export class Book extends BaseEntity {
   @Field(() => Int)
   price: number;
 
-  @Column({ nullable: true, type: 'int' })
   @Field(() => Int, { nullable: true })
   likes?: number;
 
   @Column({ type: 'timestamp' })
   @Field({ nullable: true })
   pubDate?: Date;
+
+  @Field({ nullable: true })
+  liked?: boolean;
 }

@@ -6,7 +6,7 @@ import { Category } from './entity/category.entity';
 export class CategoryResolver {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Query((type) => [Category])
+  @Query(() => [Category])
   async categories(): Promise<Category[]> {
     return this.categoryService.getCategories();
   }

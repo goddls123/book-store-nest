@@ -16,7 +16,7 @@ export class CartResolver {
     @Args('selected', { type: () => [Int], nullable: true })
     selected: number[],
     @JwtToken() user,
-  ) {
+  ): Promise<Cart[]> {
     try {
       return await this.cartService.getCartItems(selected, user.id);
     } catch (e) {

@@ -13,7 +13,7 @@ export class BookService {
     private readonly bookRepository: Repository<Book>,
   ) {}
 
-  async getBooks(bookDto: BookDto) {
+  async getBooks(bookDto: BookDto): Promise<any> {
     const where = {};
 
     if (bookDto.categoryId) {
@@ -31,7 +31,6 @@ export class BookService {
       take: bookDto.limit,
     });
 
-    // console.log(books);
     const pagination = new PageResponse();
     pagination.totalCount = bookCount;
     pagination.currentPage = bookDto.currentPage;
@@ -41,21 +40,30 @@ export class BookService {
       pagination,
     };
   }
-  async getBook(bookId: number, user) {
-    const book = await this.bookRepository
+  async getBook(bookId: number, user): Promise<Book> {
+    const qb = this.bookRepository
       .createQueryBuilder('a')
+      .select('*')
       .addSelect((subQuery) => {
         return subQuery
           .select('COUNT(*)')
           .from(Like, 'likes')
           .where(`liked_book_id=${bookId}`);
-      }, 'a_likes')
+      }, 'likes');
+
+    if (user?.id) {
+      qb.addSelect(
+        `(SELECT EXISTS (SELECT * FROM likes WHERE user_id = ${user.id} AND liked_book_id = ${bookId} ))`,
+        'liked',
+      );
+    }
+
+    return await qb
       .leftJoinAndSelect('a.category', 'category')
       .where(`a.id = ${bookId}`)
-      .getOne();
-    // console.log(book);
-    return book;
+      .getRawOne();
   }
+
   async getBooksByCategory(categoryId: number): Promise<Book[]> {
     return await this.bookRepository.findBy({ categoryId });
   }

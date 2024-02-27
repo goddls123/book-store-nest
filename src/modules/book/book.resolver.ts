@@ -13,13 +13,16 @@ export class BooksResolver {
   constructor(private booksService: BookService) {}
 
   @Query(() => BookResponse)
-  async books(@Args() bookDto: BookDto) {
+  async books(@Args() bookDto: BookDto): Promise<any> {
     return await this.booksService.getBooks(bookDto);
   }
 
   @UseGuards(UserGuard)
   @Query(() => BookDetail)
-  async bookDetail(@Args({ name: 'id' }) id: number, @JwtToken() user) {
+  async bookDetail(
+    @Args({ name: 'id' }) id: number,
+    @JwtToken() user,
+  ): Promise<Book> {
     return await this.booksService.getBook(id, user);
   }
 
